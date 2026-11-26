@@ -1,7 +1,8 @@
 {
-  "name": "Jamstacks starter",
-  "description": "A neutral Next.js foundation for Jamstacks websites.",
-  "domain": "",
+  "name": "Hope Valley Community Church",
+  "description": "Hope Valley Community Church in Asheville, NC. Sunday services at 9:00 and 10:45, kids and youth ministries, community events and a first-timer's guide. There's a seat saved for you.",
+  "domain": "next-church-welcome.jamstacks.net",
+  "timeZone": "America/New_York",
   "jamstacks": {
     "siteId": "",
     "cdnUrl": "https://cdn.jamstacks.net"

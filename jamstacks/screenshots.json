@@ -1,0 +1,22 @@
+{
+  "templateId": "next-church-welcome",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "fullPage": false,
+  "captures": [
+    {
+      "mode": "light",
+      "sha256": "60f3ecd2fa13201e5d4a41ce93f06fba517a6a3864a3569b1e2bed1e57335b84",
+      "file": "jamstacks/home-light.jpg",
+      "bytes": 258993
+    },
+    {
+      "mode": "dark",
+      "sha256": "24c24e5f177d327736a7825821553ad8e8b9f303d9068192db95807525f15223",
+      "file": "jamstacks/home-dark.jpg",
+      "bytes": 235961
+    }
+  ]
+}

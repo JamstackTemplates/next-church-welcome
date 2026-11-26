@@ -1,13 +1,21 @@
 import { business } from '../content/business.ts';
 import { absoluteUrl } from './paths.ts';
 
-/** Replace Organization with the appropriate business schema when designing a template. */
 export function businessStructuredData() {
   const url = absoluteUrl('/');
+  const { street, locality, region, postalCode, country } = business.address;
   return {
-    '@context': 'https://schema.org', '@type': 'Organization',
-    name: business.name, description: business.introduction, email: business.email,
-    ...(business.phone ? { telephone: business.phone } : {}), ...(url ? { url } : {}),
+    '@context': 'https://schema.org',
+    '@type': 'Church',
+    name: business.name,
+    description: business.introduction,
+    email: business.email,
+    telephone: business.phone,
+    address: { '@type': 'PostalAddress', streetAddress: street, addressLocality: locality,
+      addressRegion: region, postalCode, addressCountry: country },
+    openingHoursSpecification: business.officeHours.flatMap(({ day, opens, closes }) =>
+      opens && closes ? [{ '@type': 'OpeningHoursSpecification', dayOfWeek: `https://schema.org/${day}`, opens, closes }] : []),
+    ...(url ? { url } : {}),
   };
 }
 

@@ -1,0 +1,19 @@
+{
+  "name": "Hymn Board Church",
+  "description": "A warm community church site with a wooden hymn board for service times, stained-glass ministries, a step-by-step first-visit guide, an events noticeboard and giving info.",
+  "tech": "next",
+  "type": "church",
+  "style": "welcome",
+  "internal": false,
+  "components": [
+    "support-form"
+  ],
+  "configFile": "site.config.json",
+  "screenshots": {
+    "light": "jamstacks/home-light.jpg",
+    "dark": "jamstacks/home-dark.jpg",
+    "theme": {
+      "strategy": "media"
+    }
+  }
+}

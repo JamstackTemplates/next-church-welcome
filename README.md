@@ -1,85 +1,103 @@
-# JamstackTemplates Next.js starter
+# Hope Valley Community Church
 
-The shared starter for Next.js templates in the `JamstackTemplates` organization. Its canonical home is
-`JamstackTemplates/template-next`, alongside the templates generated from it.
-It is not a gallery design or a published demo. Business content is sample content. No application code
-in a website created from this template depends on the starter checkout or the portal repository.
+**Hymn Board Church** is a Jamstacks Next.js gallery template. The church, street address and people
+are fictional. The Folk Art Center is a real Asheville landmark.
 
-## Build your website
-
-Start in the checkout of the repository GitHub created from `JamstackTemplates/template-next`. All
-starter files are already present. Local development requires Node 24 or later and npm.
-
-To build a new site, fill in `plan/PLAN.md`, then tell the coding agent **`Implement plan/PLAN.md`**.
-In Claude Code, `/write-plan <business description>` drafts the brief for you. For a gallery template,
-pass the table row: `/write-plan next-type-style | Business | Description | Form purpose`.
-After reviewing the finished site, run `/cleanup-plan` or delete `plan/` and `.claude/skills/` by hand
-to remove all initial build instructions.
-
-To preview locally, run `npm ci` and `npm run dev` from the repository root.
+Use Node 24 or later and npm. Run `npm ci` and `npm run dev` for local development. To preview
+the static export, run `npm run build` and `npm start`.
 
 ## Pages
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Minimal content-driven home page and Organization JSON-LD |
-| `/contact/` | Hosted support form when configured; visible email alternative |
-| `/404.html` | Friendly static error page |
+| `/` | Sunday times, pastor’s letter, bulletin, ministries, events, giving and directions |
+| `/visit/` | Illustrated first-visit route, service comparison, FAQs and accessibility |
+| `/ministries/` | Audience-filterable groups and volunteer opportunities |
+| `/events/` | Upcoming dates, audience filters, RSVP enquiries and weekly gatherings |
+| `/giving/` | Budget, in-person and mail giving, and pantry supplies |
+| `/contact/` | Hosted support form when configured, public email, office hours and team |
+| `/404.html` | Illustrated 404 with links to Home, Visit and Events |
 
-## Make it yours
+## Edit the site
 
 | File | Owns |
 | --- | --- |
-| `content/business.ts` | Shared business name, contact details and starter sample copy |
-| `app/page.tsx`, `app/<route>/page.tsx` | Page composition and editable copy such as headings and calls to action |
-| `content/menu.ts` or `content/services.ts` (add when needed) | Industry-specific typed collections |
-| `site.config.json` | Public name, description, hostname, optional timeZone and Jamstacks integration |
-| `app/tailwind.input.css` | Theme tokens, utility mappings and small shared styles |
-| `components/site-header.tsx`, `site-footer.tsx` | Replaceable navigation and visual shell |
-| `lib/structured-data.ts` | Schema type/properties derived from real content |
-| `app/sitemap.ts` | Public routes; update when adding a page |
+| `app/page.tsx`, `app/<route>/page.tsx` | Page copy, headings, calls to action and composition |
+| `content/business.ts` | Church name, introduction, email, phone, address, directions, parking, office hours and enquiries |
+| `content/services.ts` | Sunday service name, `start`, `end`, style, childcare and notes, plus the `sundayOrder` bulletin |
+| `content/events.ts` | Dated flyers, prices, RSVP flags and optional ministry references |
+| `content/ministries.ts` | Ministry audience, age range, weekly meeting time, place, summary, icon, glass colour and Home feature IDs |
+| `content/visit.ts` | The six numbered visit stops and native FAQ answers |
+| `content/giving.ts` | The rose-window budget labels, integer percentages, glass colours and legend copy |
+| `content/team.ts` | Names, roles and one-line introductions. Portraits are keyed by ID in `components/church-art.tsx` |
+| `site.config.json` | Public name, description, hostname, IANA time zone and Jamstacks integration |
+| `app/tailwind.input.css`, `components/church-art.tsx` | Theme tokens, textures and original SVG artwork |
+| `public/hero-light.webp`, `public/hero-dark.webp` | The home page painting (Sunday morning / candlelit evening). Replace both together with the same composition: the left side should stay open, fading to the page colour, because the headline sits there |
+| `public/pages/<page>-light.webp`, `-dark.webp` | The painted window in each page heading (`<PageArt scene="visit" />`). Scenes and their alt text are listed in `components/church-art.tsx`. Replace both versions together and keep the subject in the lower middle, because the window’s pointed top crops the corners |
+| `lib/structured-data.ts`, `app/sitemap.ts` | Church JSON-LD and public route URLs |
 
-Edit page copy in the route file, for example `<Hero.Heading>Seasonal flowers</Hero.Heading>`
-in `app/page.tsx` for the Home page. The backing
-component owns the styling and interactions. Use typed fields for data the site needs to look up or
-reuse. For example, change `business.email` to update Contact. Rename in `business.name` and
-`site.config.json.name`. Add a typed core-content file for frequent owner edits: a food menu should use
-the existing sections/items/price/availability model; changes such as sold out, seasonal or a new section
-should be data edits with actionable content tests. Do not add business content to configuration: the
-Jamstacks provisioner replaces that file wholesale, possibly adding `provisioningId`.
+Edit headings and calls to action where they appear in page JSX, such as `<Hero.Heading>` in
+`app/page.tsx`. Backing components own styling and interactions. Rename the church in
+`business.name` and `site.config.json.name`. Edit the public description in `site.config.json`.
+The Jamstacks provisioner may rewrite that file and add a `provisioningId`.
 
-## Appearance and optional local-business features
+### Add a flyer
 
-The starter uses system fonts, neutral Tailwind v4 tokens and the published `jamstacks` package's
-ThemeProvider, ThemeScript and DarkModeToggle. No font download or font licence file is needed for
-system fonts. Each designed template chooses and documents self-hosted font packages and their licences.
-Utilities live in components; colours originate in CSS tokens with light, automatic-dark and explicit-dark
-values plus `@theme inline` mappings. Keep the hosted form's primary fill dark enough for white text.
-Keyboard focus, reduced motion and print styles are included. The footer credit is yours to keep,
-reword or remove.
+Add an object to the `events` array in `content/events.ts`. For example:
 
-For a business with visiting hours, add address/directions/hours to typed content, set the IANA `timeZone`
-in site.config.json and use optional `GoogleMap`, `TimeZoneNote` and `OpenBadge` components. GoogleMap
-accepts an address and descriptive title; map helpers need no key. `OpenBadge` accepts seven
-`OpeningHours` records, uses the business zone and refreshes each minute in the browser; static/no-JS
-output is neutral. Same-day intervals only: overnight hours fail validation and need a tested extension
-before use. The baseline home page does not load a map or assert opening hours.
+```ts
+{ id: '2027-03-spring-cleanup', title: 'Spring Cleanup',
+  date: '2027-03-20', start: '09:00', end: '11:00', place: 'Church grounds',
+  audience: 'everyone', ministryId: 'care-team', cost: 0, rsvp: true,
+  summary: 'Bring work gloves and help clear the paths for spring.' },
+```
+
+Use a unique lowercase ID beginning with the event date’s `YYYY-MM-`, a valid calendar date
+and same-day 24-hour times. Allowed audiences are `kids`, `youth`, `adults`, `seniors` and
+`everyone`. Use whole USD dollars from 0 to 200 and a boolean for `rsvp`. Omit `ministryId`
+when there is no sponsoring ministry. The site sorts by date then start time. All dated flyers
+are available in the static HTML. The browser removes past dates using the church’s time zone,
+keeping each event through the end of its calendar day.
+
+### Move a service or edit hours
+
+Change the `late` service’s `start` in `content/services.ts` to move the Late Service. Home, Visit, the
+header, the Sunday bulletin and the footer read the same value. Service-based bulletin rows read their
+times through `serviceId`; fixed rows have a `time` instead. Dated events and weekly ministry meetings
+are scheduled independently. Review affected dates, the Kids’ Trail meeting time and the public meta
+description when service times change.
+
+Edit all seven `officeHours` entries in `content/business.ts`. Leave `opens` and `closes` absent
+on closed days. Use `HH:MM` with `opens` earlier than `closes`. The office badge and next-service
+label refresh each minute in the zone configured in `site.config.json`. The static labels are
+“See office hours” and “Every Sunday.” Replace the sample address before using the Home directions
+and Google map for a real location.
+
+Run `npm run check` after content edits. The content suite reports the collection, item and field
+when an ID or value is invalid. Keep rose-window budget shares at a total of 100.
+
+## Appearance
+
+Petrona Variable (including italic), Radio Canada Variable and Sue Ellen Francisco are
+self-hosted from Fontsource npm packages. Their bundled licenses are SIL Open Font License 1.1.
+The palette supports browser light/dark preference and the Jamstacks theme toggle. Inline SVGs,
+CSS textures and real HTML tiles carry the design through both themes. The stylesheet includes
+focus, reduced-motion and paper print styles.
 
 ## Public configuration
 
 ```json
 {
-  "name": "Business name",
+  "name": "Hope Valley Community Church",
   "description": "Public description",
-  "domain": "next-business-minimal.jamstacks.net",
+  "domain": "next-church-welcome.jamstacks.net",
   "timeZone": "America/New_York",
   "jamstacks": { "siteId": "", "cdnUrl": "https://cdn.jamstacks.net" }
 }
 ```
 
-The starter itself leaves domain/timeZone unset. Gallery templates use their folder name plus
-`.jamstacks.net`; customers replace the demo domain with their own. Do not invent canonical URLs when
-the deployed address is unknown.
+The gallery demo uses its template ID plus `.jamstacks.net`. Replace the domain with your own,
+or leave it empty while the deployed address is unknown.
 
 | Environment variable | Public build-time meaning |
 | --- | --- |
@@ -159,8 +177,6 @@ node /home/mythz/src/mythz/jamstacks.net/tools/template-screenshots/capture.mjs 
 node --test jamstacks/config.test.mjs
 ```
 
-Before publication: replace neutral content and shell; validate industry data/schema and all links;
-choose licensed fonts; verify both themes/base-path/embed states; create a neutral 1200×630 public/og.png
-from the finished design and wire metadata; replace the icon; generate gallery captures and validate;
-confirm domain/Pages settings and HTTPS; remove `plan/` and `.claude/skills/` after review. The website must not import or
-link the planning folder. No stock screenshot or OG image is supplied as if it were final.
+The site icon lives in `app/icon.svg`. The 1200×630 share image at `public/og.png` is an illustrated
+snapshot of the sample design. Regenerate it if you change branding or service times. After review,
+remove `plan/` and `.claude/skills/` before publishing the template to the gallery.

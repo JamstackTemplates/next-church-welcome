@@ -1,20 +1,23 @@
 import type { ReactNode } from 'react';
+import { RidgeEdge } from './church-art';
+import { Kicker } from './church-layout';
 
-/** Heading block for inner pages: eyebrow, large title (use <em> for the accent words) and a lede. */
-export function PageHead({ eyebrow, title, children, id, before }: {
-  eyebrow: string;
-  title: ReactNode;
-  children?: ReactNode;
-  id?: string;
-  /** Optional illustration above the eyebrow. */
-  before?: ReactNode;
-}) {
-  return (
-    <header className="wrap pt-[clamp(2.5rem,6vw,4.5rem)] pb-[clamp(1.5rem,3vw,2.5rem)]">
-      {before}
-      <p className="eyebrow">{eyebrow}</p>
-      <h1 id={id} className="mt-3 mb-5 max-w-[18ch] text-[clamp(2.6rem,6.5vw,4.6rem)]">{title}</h1>
-      {children ? <div className="max-w-(--measure) text-[clamp(1.08rem,1.6vw,1.22rem)] text-muted">{children}</div> : null}
-    </header>
-  );
+/** `edge` is the background colour of the section that follows, so the ridgeline blends into it. */
+function Head({ children, art, edge = 'var(--bg)' }: { children: ReactNode; art: ReactNode; edge?: string }) {
+  return <header className="interior-head light-beams">
+    <div className="wrap grid items-end gap-7 pt-10 md:grid-cols-[1.5fr_1fr] md:gap-16 md:pt-13">
+      <div className="grid content-center gap-4 pb-4 md:min-h-61 md:pb-14">{children}</div>
+      <div className="interior-art md:justify-self-end">{art}</div>
+    </div>
+    <RidgeEdge fill={edge} className="interior-edge" />
+  </header>;
 }
+
+function Title({ children }: { children: ReactNode }) {
+  return <h1 className="max-w-[12ch] text-[clamp(3rem,7.1vw,7rem)] leading-[.92] font-semibold tracking-[-.055em] text-balance">{children}</h1>;
+}
+function Intro({ children }: { children: ReactNode }) {
+  return <p className="max-w-lg text-lg/relaxed text-muted">{children}</p>;
+}
+
+export const PageHead = Object.assign(Head, { Kicker, Title, Intro });
